@@ -19,6 +19,13 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -40,17 +47,17 @@
     </script>
   </head>
   <body
-    class="font-sans font-medium bg-light text-very_dark text-sm flex w-full h-screen flex-col place-content-center"
+    class="font-sans font-medium bg-light text-very_dark text-sm flex sm:w-full sm:h-screen flex-col place-content-center"
   >
     <main
-      class="bg-white mx-6 my-auto sm:m-auto rounded-xl shadow-lg sm:flex sm:flex-row max-w-screen-md"
+      class="bg-white mx-6 my-20 sm:m-auto rounded-xl shadow-lg sm:flex sm:flex-row max-w-screen-md sm:w-max"
     >
       <img
         class="w-full sm:w-2/5 rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none h-auto"
         src="images/drawers.jpg"
         alt="image of drawers"
       />
-      <div class="sm:w-3/5">
+      <div class="sm:w-3/5 relative">
         <section class="p-8 pb-5 flex flex-col gap-3">
           <h1 class="text-base font-bold sm:text-2xl">
             Shift the overall look and feel by adding these wonderful touches to
@@ -62,7 +69,10 @@
             you make any room feel complete.
           </p>
         </section>
-        <section class="flex justify-between items-center pt-3 pb-5 px-8">
+        <section
+          id="share-profile"
+          class="flex justify-between items-center pt-3 pb-5 px-8"
+        >
           <div class="flex inline-flex gap-4">
             <img
               class="rounded-full w-12"
@@ -74,30 +84,52 @@
               <p>28 Jun 2020</p>
             </div>
           </div>
-          <img
-            class="p-2 bg-light rounded-full size-10"
-            src="images/icon-share.svg"
-            alt="share icon"
-          />
+          <button
+            id="share-btn"
+            class="p-2 bg-light rounded-full size-10 hover:bg-grayish focus:bg-grayish active:bg-grayish"
+            aria-label="Share"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="13">
+              <path
+                fill="#6E8098"
+                class="hover:fill-white"
+                d="M15 6.495L8.766.014V3.88H7.441C3.33 3.88 0 7.039 0 10.936v2.049l.589-.612C2.59 10.294 5.422 9.11 8.39 9.11h.375v3.867L15 6.495z"
+              />
+            </svg>
+          </button>
         </section>
         <section
-          class="hidden bg-very_dark flex justify-between items-center py-5 px-8 rounded-b-xl"
+          id="share-links"
+          class="w-full bottom-0 hidden bg-very_dark flex justify-between items-center py-5 px-8 rounded-b-xl sm:shadow-lg absolute sm:bottom-[28%] sm:left-[62%] sm:w-max sm:rounded-md sm:px-8 sm:py-4"
         >
-          <div class="flex flex-row gap-5">
-            <p class="text-light opacity-75 uppercase tracking-[.5em]">Share</p>
-            <img class="" src="images/icon-facebook.svg" alt="Facebook icon" />
-            <img class="" src="images/icon-twitter.svg" alt="Twitter icon" />
-            <img
-              class=""
-              src="images/icon-pinterest.svg"
-              alt="Pinterest icon"
-            />
+          <div class="flex flex-row gap-3 items-center sm:gap-3">
+            <div
+              class="hidden sm:block arrow arrow absolute bottom-[-10px] left-[45%] block border-t-[14px] border-t-very_dark border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent"
+            ></div>
+            <p class="text-light opacity-50 uppercase tracking-[.5em]">Share</p>
+            <a href="https://www.facebook.com" target="_blank" rel="noopener">
+              <img src="images/icon-facebook.svg" alt="Facebook icon" />
+            </a>
+            <a href="https://www.twitter.com" target="_blank" rel="noopener">
+              <img src="images/icon-twitter.svg" alt="Twitter icon" />
+            </a>
+            <a href="https://www.pinterest.com" target="_blank" rel="noopener">
+              <img src="images/icon-pinterest.svg" alt="Pinterest icon" />
+            </a>
           </div>
-          <img
-            class="p-2 bg-grayish/25 rounded-full size-10"
-            src="images/icon-share.svg"
-            alt="share icon"
-          />
+          <button
+            id="share-btn-close"
+            class="p-2 bg-grayish/25 rounded-full size-10 sm:hidden"
+            aria-label="Close Share"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="13">
+              <path
+                class="fill-white"
+                fill="#6E8098"
+                d="M15 6.495L8.766.014V3.88H7.441C3.33 3.88 0 7.039 0 10.936v2.049l.589-.612C2.59 10.294 5.422 9.11 8.39 9.11h.375v3.867L15 6.495z"
+              />
+            </svg>
+          </button>
         </section>
       </div>
     </main>
@@ -112,6 +144,42 @@
         >Frontend Mentor</a
       >. Coded by <a class="text-dark underline" href="#">Onyinye Oguocha</a>.
     </div>
-    <script src="index.js"></script>
+
+    <script>
+      const shareBtn = document.getElementById("share-btn");
+      const shareBtnClose = document.getElementById("share-btn-close");
+      const shareContent = document.getElementById("share-links");
+      const shareProfile = document.getElementById("share-profile");
+
+      const toggleVisibility = () => {
+        shareContent.classList.toggle("hidden");
+      };
+
+      shareBtn.addEventListener("click", function () {
+        toggleVisibility();
+      });
+      shareBtnClose.addEventListener("click", function () {
+        toggleVisibility();
+      });
+    </script>
+    <!-- <script>
+      const shareBtn = document.getElementById("share-btn");
+      const shareBtnClose = document.getElementById("share-btn-close");
+      const shareLinks = document.getElementById("share-links");
+      const shareProfile = document.getElementById("share-profile");
+
+      const toggleVisibility = (show, hide) => {
+        show.classList.remove("hidden");
+        hide.classList.add("hidden");
+      };
+
+      shareBtn.addEventListener("click", () => {
+        toggleVisibility(shareLinks, shareProfile);
+      });
+
+      shareBtnClose.addEventListener("click", () => {
+        toggleVisibility(shareProfile, shareLinks);
+      });
+    </script> -->
   </body>
 </html>
